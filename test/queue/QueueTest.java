@@ -3,7 +3,6 @@ package queue;
 import org.junit.Test;
 
 import java.util.ArrayDeque;
-import java.util.LinkedList;
 
 public class QueueTest extends QueueBaseTest<ArrayDeque<Object>> {
     @Test
