@@ -6,7 +6,7 @@ import org.junit.Assert;
 import java.util.*;
 import java.util.function.Supplier;
 
-public class ArrayQueueBaseTest {
+public class QueueBaseTest {
     protected final Random random = new Random(3447982348967759878L);
 
     private void testEmpty(final Queue queue) {
