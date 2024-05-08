@@ -23,7 +23,7 @@ jobs:
 
 
       - name: Build
-        run: javac -cp "test:src:lib/hamcrest-core-1.3.jar:lib/junit-4.11.jar" test/queue/ArrayQueueTest.java
+        run: javac -cp "test:src:lib/hamcrest-core-1.3.jar:lib/junit-4.11.jar" test/queue/QueueTest.java test/queue/QueueMapFilterTest.java
 
       - name: Test Base
-        run: java -cp "test:src:lib/hamcrest-core-1.3.jar:lib/junit-4.11.jar" org.junit.runner.JUnitCore queue.ArrayQueueTest
+        run: java -cp "test:src:lib/hamcrest-core-1.3.jar:lib/junit-4.11.jar" org.junit.runner.JUnitCore queue.QueueTest queue.QueueMapFilterTest
