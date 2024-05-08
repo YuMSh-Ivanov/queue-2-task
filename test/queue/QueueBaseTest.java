@@ -6,7 +6,7 @@ import org.junit.Assert;
 import java.util.*;
 import java.util.function.Supplier;
 
-public class QueueBaseTest {
+public class QueueBaseTest<C extends java.util.Queue<Object>> {
     protected final Random random = new Random(3447982348967759878L);
 
     private void testEmpty(final Queue queue) {
@@ -51,10 +51,10 @@ public class QueueBaseTest {
         return ELEMENTS[random.nextInt(ELEMENTS.length)];
     }
 
-    protected void otherOperations(final List<Pair<Queue, LinkedList<Object>>> queues, final Pair<Queue, LinkedList<Object>> pair) {
+    protected void otherOperations(final List<Pair<Queue, C>> queues, final Pair<Queue, C> pair) {
     }
 
-    private void moreQueues(final List<Pair<Queue, LinkedList<Object>>> queues, final Pair<Queue, LinkedList<Object>> pair) {
+    private void moreQueues(final List<Pair<Queue, C>> queues, final Pair<Queue, C> pair) {
         if (random.nextInt(50) == 0) {
             pair.first().clear();
             pair.second().clear();
@@ -63,12 +63,12 @@ public class QueueBaseTest {
         }
     }
 
-    private void testRandom(final Pair<Queue, LinkedList<Object>> initial, final double addFreq) {
-        final List<Pair<Queue, LinkedList<Object>>> queues = new ArrayList<>();
+    private void testRandom(final Pair<Queue, C> initial, final double addFreq) {
+        final List<Pair<Queue, C>> queues = new ArrayList<>();
         queues.add(initial);
         int ops = 0;
         for (int i = 0; i < 50_000; i++) {
-            final Pair<Queue, LinkedList<Object>> pair = queues.get(random.nextInt(queues.size()));
+            final Pair<Queue, C> pair = queues.get(random.nextInt(queues.size()));
 
             boolean isEmpty = pair.second().isEmpty();
             Assert.assertEquals("isEmpty for " + pair.first(), isEmpty, pair.first().isEmpty());
@@ -91,7 +91,8 @@ public class QueueBaseTest {
             }
         }
 
-        for (final Pair<Queue, LinkedList<Object>> pair : queues) {
+        for (int j = 0; j < queues.size(); j++) {
+            final Pair<Queue, C> pair = queues.get(j);
             moreQueues(queues, pair);
             final int size = pair.second().size();
             assertSize(size, pair.first());
@@ -107,7 +108,7 @@ public class QueueBaseTest {
         Assert.assertEquals("isEmpty() of " + queue, size == 0, queue.isEmpty());
     }
 
-    protected void test(final Supplier<AbstractQueue> queueActual, final Supplier<LinkedList<Object>> queueExpected) {
+    protected void test(final Supplier<AbstractQueue> queueActual, final Supplier<C> queueExpected) {
         testEmpty(queueActual.get());
         testSingleton(queueActual.get());
         testClear(queueActual.get());

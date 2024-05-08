@@ -17,4 +17,15 @@
 
 ## Модификация.
 
-Модификация будет, и будет отличаться от модификации queue-1.
+1. Добавить в интерфейс очереди (и, соответственно, в каждый класс) следующие методы, а также контракты к ним:
+    - `Queue filter(Predicate<Object> predicate)` — вернуть очередь, содержащую только элементы, удовлетворяющие [предикату](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Predicate.html).
+    - `Queue map(Function<Object, Object> function)` — вернуть очередь, содержащую результаты применения [функции](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Function.html).
+2. Оригинальная очередь должна не меняться.
+3. Тип возвращаемой очереди должен соответствовать типу исходной очереди.
+4. Взаимный порядок элементов должен сохраняться.
+5. Дублирования кода быть не должно.
+
+Пример.\
+Пусть `queue` состоит из элементов `[1, 2, "hello", 5, "world!", 8]`.\
+Тогда `queue.filter(o -> o instanceof Integer)` должно вернуть очередь `[1, 2, 5, 8]`.\
+А `queue.filter(o -> o instanceof Integer).map(o -> (Integer)o + 10)` должно вернуть `[11, 12, 15, 18]`.
